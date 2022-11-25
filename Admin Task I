@@ -8,6 +8,26 @@
 hdfs dfsadmin -safemode get
 
 
+-----***Creating a data pipeline s3 to Hdfs and vice versa***----
+nano core-site.xml
+
+<property>
+  <name>fs.s3a.access.key</name>
+  <description>AWS access key ID used by S3A file system.</description>
+  <value>AKIAQH2AR57J6Y2MBN6I</value> 
+</property>
+
+<property>
+  <name>fs.s3a.secret.key</name>
+  <description>AWS secret key used by S3A file system.</description>
+  <value>OsjmqGmq/OhAg6tfHuTBVkfI5pbn6cG6poqf8vzB</value>
+</property>
+
+nano hadoop-env.sh
+
+export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$HADOOP_HOME/share/hadoop/tools/lib/*
+
+hdfs dfs -cp s3a://bucketname/filename /user/haduser/
 
 -----*** Distributed copy ***-----
 
@@ -45,7 +65,6 @@ nano mapred-site.xml
 nano hadoop-env.sh
 
 export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$HADOOP_HOME/share/hadoop/tools/lib/*
-
 
 
 hadoop distcp /user/hduser/jinga.xml s3a://<bucket-name>/
