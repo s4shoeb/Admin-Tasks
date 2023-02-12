@@ -1,0 +1,50 @@
+-----**** Hadoop Archivals ****-----
+
+hadoop archive -archiveName xyz.har -p /user/ubuntu abcd hadoop-2.8.2.tar.gz /user/ubuntu
+
+hdfs dfs -ls
+
+hdfs dfs -ls -R xyz.har
+
+hdfs dfs -ls -R har:///user/ubuntu/xyz.har
+
+
+hdfs dfs -mkdir /user/ubuntu/unarch
+
+hdfs dfs -cp har:///user/ubuntu/xyz.har/abcd hdfs:/user/ubuntu/unarch
+
+hdfs dfs -ls -R /user/ubuntu/unarch
+
+
+-----**** Trash configuration ****-----
+
+nano core-site.xml
+
+<property>
+<name>fs.trash.interval</name>
+<value>30</value>
+<description>Number of minutes between trash checkpoints. If zero, the trash feature is disabled</description>
+</property>
+<property>
+<name>fs.trash.checkpoint.interval</name>
+<value>15</value>
+</property>
+
+
+hdfs dfs -rm <file>
+
+hdfs dfs -ls -R <path>
+
+## To permanently delete without going to trash
+ hdfs dfs -rm -skipTrash <path-to-file>
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  
+hadoop version
+
+hdfs dfs -du hdfs:/  -------------disk usage
+
+hdfs dfs -count hdfs:/ --------- file count
+
